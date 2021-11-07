@@ -10,7 +10,7 @@ import sys
 import random
 
 html = Blueprint(r'html', __name__, static_folder="heartbeats-frontend/build/", static_url_path="/")
-ws = Blueprint(r'wss', __name__)
+ws = Blueprint(r'ws', __name__)
 
 indexFilepath = "index.html"
 @html.route('/')
