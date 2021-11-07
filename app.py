@@ -3,7 +3,6 @@ Author: Stephen Malinowski
 
 """
 
-from _typeshed import NoneType
 from flask import Flask, make_response, Blueprint, send_file, send_from_directory, request, redirect
 from flask_sockets import Sockets
 import json
@@ -25,11 +24,7 @@ mostrecentbpm = 0
 @html.route('/bpmnew', methods=(["post"]))
 def bpm_counter():
     global mostrecentbpm
-    print(request.json)
-    if request.json["incoming"] == NoneType:
-        mostrecentbpm = 72 + random.randint(1, 17)
-    else:
-        mostrecentbpm = request.json["incoming"]
+    mostrecentbpm = request.json["incoming"]
     return 'BPMS recieved'
 
 email_to_socket = {}
