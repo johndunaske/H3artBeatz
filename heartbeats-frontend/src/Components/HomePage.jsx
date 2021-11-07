@@ -59,9 +59,10 @@ export default class HomePage extends React.Component {
     socket.addEventListener("message", (event) => {
       var data = ""
       try {
+        console.log(event.data);
         data = JSON.parse(event.data)["BPM"];
       } catch(e) {
-        
+
       }
        
       var newList =[];
