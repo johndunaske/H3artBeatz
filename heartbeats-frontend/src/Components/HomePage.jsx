@@ -8,14 +8,14 @@ import SpotifyPlayer from "react-spotify-web-playback";
 // signout: function to remove spotify auth token cookie
 // token: spotify token
 // fPlaylist: favorite playlist
+
+var socket;
+var count = 0;
 export default class HomePage extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-
-      tracks: [],
-      bpmMap: {},
       favoritePlaylistLink:
         this.props.fPlaylist != null
           ? this.props.fPlaylist.uri
@@ -23,54 +23,51 @@ export default class HomePage extends React.Component {
       favoritePlaylistId:
         this.props.fPlaylist != null ? this.props.fPlaylist.id : null,
       albumCover: defaultImage,
+      avg: [],
+      avgCalc: 0,
+      hrReadings: [100],
+      xAxis: [0],
     };
   }
 
   componentDidMount = () => {
-    if (
-      this.state.favoritePlaylistId == null ||
-      this.state.favoritePlaylistLink == null
-    ) {
-      return;
-    } else {
-      console.log(this.state)
-      this.setState({tracks: ["fdsaf"]});
-      // var url =
-      //   "https://api.spotify.com/v1/playlists/" +
-      //   this.state.favoritePlaylistId +
-      //   "/tracks";
-      // fetch(url, {
-      //   method: "GET",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //     Authorization: "Bearer " + this.props.token,
-      //   },
-      // })
-      //   .then((response) => response.json())
-        //.then((data) => {this.setState({ tracks: data.items })});
-        console.log(this.state.tracks);
-    }
+    socket = new WebSocket("ws://https://h3artbeatz.herokuapp.com/websocket");
+
+    socket.addEventListener("open", (event) => {
+      console.log("Websocket Connected!");
+    });
+
+    socket.addEventListener("message", (event) => {
+      var data = JSON.parse(event.BPM);
+      var newList =[];
+      if (this.state.avg.length < 15) {
+        newList = this.state.avg.concat([data]);
+        this.setState({avg:newList});
+      }
+      if (this.state.avg.length >= 15) {
+        var sum = 0;
+        for (var i = 0; i < 15; i++) {
+          sum += this.state.avg[i]
+        }
+        var avgVal = sum / 15
+        this.setState({avgCalc: avgVal});
+      }
+      if (count > 20) {
+        var newList = this.state.hrReadings.concat([data]);
+        var lastX = this.state.xAxis[this.state.xAxis.length - 1]
+        var newX = this.state.xAxis.concat(this.state.xAxis[lastX])
+        this.setState({hrReadings:newList});
+        this.setState({xAxis:lastX});
+        count = 0;
+      }
+
+      count++;
+    });
+
+    socket.addEventListener("close", (event) => {
+      console.log("Websocket Disconnected!");
+    });
   };
-  // var url =
-  //   "https://api.spotify.com/v1/audio-features?ids=" + idList.join();
-  // fetch(url, {
-  //   method: "GET",
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //     Authorization: "Bearer " + this.props.token,
-  //   },
-  // })
-  //   .then((response) => response.json())
-  //   .then((data) => {
-  //     var createMap = {}
-  //     data.audio_features.forEach((track) => {
-  //       var tempo = track.tempo;
-  //       createMap[tempo] = track.uri;
-  //     })
-  //     return createMap
-  //     }).then((finished) => {
-  //       return finished
-  //     })
 
   displayAlbum = (state) => {
     if (state && state.track && state.track.image) {
