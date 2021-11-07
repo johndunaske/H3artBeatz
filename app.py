@@ -16,6 +16,16 @@ indexFilepath = "index.html"
 def serveIndex():
     return html.send_static_file("index.html")
 
+
+counterofbpms = 0
+
+
+@html.route('/bpm', methods=(["post"]))
+def bpm_counter():
+    global counterofbpms
+    counterofbpms += 1
+    return 'BPMS recieved' + str(counterofbpms)
+
 email_to_socket = {}
 username_to_team = {}
 list_of_sockets = []
