@@ -17,10 +17,10 @@ def serveIndex():
     return html.send_static_file("index.html")
 
 
-mostrecentbpm = "0"
+mostrecentbpm = 0
 
 
-@html.route('/bpm', methods=(["post"]))
+@html.route('/bpmnew', methods=(["post"]))
 def bpm_counter():
     global mostrecentbpm
     mostrecentbpm = request.json["incoming"]
@@ -36,9 +36,7 @@ Cards_Backlog = []
 @ws.route('/websocket')
 def socket_helper(socket):
     while not socket.closed:                            # While this socket is not closed do the following
-        for sock in list_of_sockets:
-            if not sock.closed:
-                sock.send(json.dumps({"BPM": str(mostrecentbpm)}))
+        socket.send(json.dumps({"BPM": str(mostrecentbpm)}))
     list_of_sockets.remove(socket)
 
 
