@@ -31,7 +31,7 @@ export default class HomePage extends React.Component {
   }
 
   componentDidMount = () => {
-    socket = new WebSocket("ws://https://h3artbeatz.herokuapp.com/websocket");
+    socket = new WebSocket("wss://https://h3artbeatz.herokuapp.com/websocket");
 
     socket.addEventListener("open", (event) => {
       console.log("Websocket Connected!");
