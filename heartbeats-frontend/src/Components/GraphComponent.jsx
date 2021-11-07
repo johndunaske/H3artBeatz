@@ -6,8 +6,8 @@ export default class GraphComponent extends React.Component {
     super(props);
 
     this.state = {
-      hrReadings: this.props.hrReadings, // 90,90,90,130,130,130 List containing the heart rate readings to display in the graph (y axis)
-      xAxis: this.props.xAxis, //0, 0.5, 1, 1.5, 2, 2.5
+      hrReadings: [90,90,90,130,130,130 ], // 90,90,90,130,130,130 List containing the heart rate readings to display in the graph (y axis)
+      xAxis: [0, 0.5, 1, 1.5, 2, 2.5], //0, 0.5, 1, 1.5, 2, 2.5
       maxReadings: 10, // Maximum # of readings stored in the hrReadings (simulate motion of the graph)
       options: {
         elements: {

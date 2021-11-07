@@ -50,49 +50,49 @@ export default class HomePage extends React.Component {
   }
 
   componentDidMount = () => {
-    socket = new WebSocket("ws://h3artbeatz.herokuapp.com/websocket");
+    // socket = new WebSocket("ws://h3artbeatz.herokuapp.com/websocket");
 
-    socket.addEventListener("open", (event) => {
-      console.log("Websocket Connected!");
-    });
+    // socket.addEventListener("open", (event) => {
+    //   console.log("Websocket Connected!");
+    // });
 
-    socket.addEventListener("message", (event) => {
-      var data = ""
-      try {
-        console.log(event.data);
-        data = JSON.parse(event.data)["BPM"];
-      } catch(e) {
+    // socket.addEventListener("message", (event) => {
+    //   var data = ""
+    //   try {
+    //     console.log(event.data);
+    //     data = JSON.parse(event.data)["BPM"];
+    //   } catch(e) {
 
-      }
+    //   }
        
-      var newList =[];
-      if (this.state.avg.length < 15) {
-        newList = this.state.avg.concat([data]);
-        this.setState({avg:newList});
-      }
-      if (this.state.avg.length >= 15) {
-        var sum = 0;
-        for (var i = 0; i < 15; i++) {
-          sum += this.state.avg[i]
-        }
-        var avgVal = sum / 15
-        this.setState({avgCalc: avgVal});
-      }
-      if (count > 20) {
-        var newList = this.state.hrReadings.concat([data]);
-        var lastX = this.state.xAxis[this.state.xAxis.length - 1]
-        var newX = this.state.xAxis.concat(this.state.xAxis[lastX])
-        this.setState({hrReadings:newList});
-        this.setState({xAxis:lastX});
-        count = 0;
-      }
+    //   var newList =[];
+    //   if (this.state.avg.length < 15) {
+    //     newList = this.state.avg.concat([data]);
+    //     this.setState({avg:newList});
+    //   }
+    //   if (this.state.avg.length >= 15) {
+    //     var sum = 0;
+    //     for (var i = 0; i < 15; i++) {
+    //       sum += this.state.avg[i]
+    //     }
+    //     var avgVal = sum / 15
+    //     this.setState({avgCalc: avgVal});
+    //   }
+    //   if (count > 20) {
+    //     var newList = this.state.hrReadings.concat([data]);
+    //     var lastX = this.state.xAxis[this.state.xAxis.length - 1]
+    //     var newX = this.state.xAxis.concat(this.state.xAxis[lastX])
+    //     this.setState({hrReadings:newList});
+    //     this.setState({xAxis:lastX});
+    //     count = 0;
+    //   }
 
-      count++;
-    });
+    //   count++;
+    // });
 
-    socket.addEventListener("close", (event) => {
-      console.log("Websocket Disconnected!");
-    });
+    // socket.addEventListener("close", (event) => {
+    //   console.log("Websocket Disconnected!");
+    // });
 
     if (this.state.favoritePlaylistId != null && this.state.favoritePlaylistLink != null) {
       let tracksVar = this.getTracks();
