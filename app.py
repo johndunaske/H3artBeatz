@@ -17,14 +17,14 @@ def serveIndex():
     return html.send_static_file("index.html")
 
 
-counterofbpms = 0
+mostrecentbpm = "0"
 
 
 @html.route('/bpm', methods=(["post"]))
 def bpm_counter():
-    global counterofbpms
-    counterofbpms += 1
-    return 'BPMS recieved' + str(counterofbpms)
+    global mostrecentbpm
+    mostrecentbpm = request.json["incoming"]
+    return 'BPMS recieved'
 
 email_to_socket = {}
 username_to_team = {}
@@ -37,14 +37,8 @@ Cards_Backlog = []
 def socket_helper(socket):
     while not socket.closed:                            # While this socket is not closed do the following
         for sock in list_of_sockets:
-            message = socket.receive()
-            if message is not None:
-                dejsonify = json.loads(message)
-                #Tillos function call / jazz with these things
-                #With the output getting sent in a message looking like the following #HEADS UP JOHN
-                if "incoming" in dejsonify:
-                    if not sock.closed:
-                        sock.send(json.dumps({"BPM": dejsonify["incoming"]}))
+            if not sock.closed:
+                sock.send(json.dumps({"BPM": str(mostrecentbpm)}))
     list_of_sockets.remove(socket)
 
 
