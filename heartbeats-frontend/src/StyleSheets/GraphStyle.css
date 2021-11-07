@@ -5,9 +5,8 @@
 }
 
 .graphContainer {
-    position: absolute;
     width: 100vw;
-    height: 90vh;
-    z-index: 10;
+    height: 83vh;
+    z-index: 0;
     backdrop-filter: blur(2px);
 }

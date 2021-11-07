@@ -2,6 +2,7 @@
 @import "@fontsource/romanesco";
 @import "@fontsource/noto-sans";
 @import "./StyleSheets/LoginPage.css";
+@import "./StyleSheets/PlaylistPage.css";
 
 html {
   background: #232323;
@@ -33,7 +34,7 @@ html {
 }
 
 .albumCover {
-  width: 36vw;
+  width: 30vw;
   height: 60vh;
 }
 
@@ -75,6 +76,7 @@ html {
   user-select: none;
   -ms-user-select: none;
   -webkit-user-select: none;
+  text-decoration: none;
 }
 
 .topBarButton:hover {
