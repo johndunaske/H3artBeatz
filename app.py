@@ -38,6 +38,7 @@ def socket_helper(socket):
     list_of_sockets.remove(socket)
 
 
+#Config
 
 app = Flask(__name__, static_folder="heartbeats-frontend/build/", static_url_path="/")
 sockets = Sockets(app)
