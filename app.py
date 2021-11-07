@@ -3,10 +3,12 @@ Author: Stephen Malinowski
 
 """
 
+from _typeshed import NoneType
 from flask import Flask, make_response, Blueprint, send_file, send_from_directory, request, redirect
 from flask_sockets import Sockets
 import json
 import sys
+import random
 
 html = Blueprint(r'html', __name__, static_folder="heartbeats-frontend/build/", static_url_path="/")
 ws = Blueprint(r'ws', __name__)
@@ -23,7 +25,11 @@ mostrecentbpm = 0
 @html.route('/bpmnew', methods=(["post"]))
 def bpm_counter():
     global mostrecentbpm
-    mostrecentbpm = request.json["incoming"]
+    print(request.json)
+    if request.json["incoming"] == NoneType:
+        mostrecentbpm = 72 + random.randint(1, 17)
+    else:
+        mostrecentbpm = request.json["incoming"]
     return 'BPMS recieved'
 
 email_to_socket = {}
