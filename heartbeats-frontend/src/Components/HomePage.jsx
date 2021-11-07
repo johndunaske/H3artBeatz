@@ -27,7 +27,26 @@ export default class HomePage extends React.Component {
       avgCalc: 0,
       hrReadings: [100],
       xAxis: [0],
+      tracks:[],
     };
+  }
+
+  getTracks = () => {
+    var url = `https://api.spotify.com/v1/playlists/${this.state.favoritePlaylistId}/tracks`
+    fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + this.props.token,
+      }
+    }).then((response) => response.json())
+    .then(data => {
+      let temp = [];
+      for (let i of data.items) {
+        temp.push(i);
+      }
+      this.setState({tracks:temp});
+    })
   }
 
   componentDidMount = () => {
@@ -67,6 +86,11 @@ export default class HomePage extends React.Component {
     socket.addEventListener("close", (event) => {
       console.log("Websocket Disconnected!");
     });
+
+    if (this.state.favoritePlaylistId != null && this.state.favoritePlaylistLink != null) {
+      let tracksVar = this.getTracks();
+      this.setState({tracks: tracksVar});
+    }
   };
 
   displayAlbum = (state) => {
@@ -79,7 +103,6 @@ export default class HomePage extends React.Component {
     return (
       <div className="mainContent">
         <TopBar logout={this.props.signout} />
-        <div className="currentSong">{this.state.currentSong}</div>
         <div className="albumContainer">
           <img
             className="albumCover"
