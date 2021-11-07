@@ -1,1 +1,0 @@
-web /bin/sh -c /wait\ \&\&\ python\ app.py\ \$PORT
