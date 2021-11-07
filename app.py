@@ -8,7 +8,7 @@ from flask_sockets import Sockets
 import json
 import sys
 
-html = Blueprint(r'html', __name__, static_folder="frontend/build/", static_url_path="/")
+html = Blueprint(r'html', __name__, static_folder="heartbeats-frontend/build/", static_url_path="/")
 ws = Blueprint(r'ws', __name__)
 
 indexFilepath = "index.html"
@@ -39,7 +39,7 @@ def socket_helper(socket):
 
 
 
-app = Flask(__name__, static_folder="frontend/build/", static_url_path="/")
+app = Flask(__name__, static_folder="heartbeats-frontend/build/", static_url_path="/")
 sockets = Sockets(app)
 app.register_blueprint(html, url_prefix=r'/')
 sockets.register_blueprint(ws, url_prefix=r'/')
