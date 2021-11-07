@@ -1,15 +1,13 @@
 .lineGraph {
-    width: 100% !important;
-    height: 100% !important;
-    background: linear-gradient(0deg, #000000 13.02%, rgba(0, 0, 0, 0) 100%);
+    width: 100vw !important;
+    height: 90vh !important;
+    background: linear-gradient(0deg, #000000 20%, rgba(0, 0, 0, 0.7) 70%, rgba(0,0,0,0.5) 90%,rgba(0, 0, 0, 0) 100%);
 }
 
 .graphContainer {
     position: absolute;
-    width: 100%;
-    height: 90%;
+    width: 100vw;
+    height: 90vh;
     z-index: 10;
-}
-
-.addButton {
+    backdrop-filter: blur(2px);
 }

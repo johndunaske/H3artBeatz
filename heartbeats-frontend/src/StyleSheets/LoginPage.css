@@ -1,0 +1,52 @@
+.mainContainer {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.loginContainer {
+    width: 100vw;
+    height: 70vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20vh;
+}
+
+.loginWindow {
+    width: 40vw;
+    height: 20vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 10px;
+}
+
+.loginHeader {
+    color: white;
+    font-family: var(--header-font);
+    font-size: 7vmin;
+}
+
+.loginButton {
+    color: white;
+    font-family: var(--option-font);
+    text-decoration: none;
+    margin-top: 3vh;
+    text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25), -1px 0px 0 rgba(0,0,0,0.2), 1px 0px 0 rgba(0,0,0,0.2), 0px -1px 0 rgba(0,0,0,0.2), 0px 1px 0 rgba(0,0,0,0.2);
+    background-color: #5FBF74;
+    padding-left: 0.5vw;
+    padding-right: 0.5vw;
+    padding-top: 0.5vh;
+    padding-bottom: 0.5vh;
+    width: 25vw;
+    height: 3.5vh;
+    font-size: 3vmin;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
